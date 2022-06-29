@@ -24,6 +24,13 @@ describe('create user', () => {
 		})
 	});
 
+    test('should 400 if password is invalid', async () => {
+		const req = mockRequest({ name: 'Caio', email: 'email@banana.com', password: 'ban' });
+		const res = mockResponse();
+		await userController.create(req, res);
+		expect(res.status).toHaveBeenCalledWith(400);
+	});
+
 	afterAll(async () => {
 		await mongoose.connection.close();
 	});
